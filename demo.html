@@ -15,6 +15,11 @@
     <script src="https://unpkg.com/dagre@0.7.4/dist/dagre.js"></script>
     <script src="cytoscape-dagre.js"></script>
 
+    <script src="https://unpkg.com/layout-base/layout-base.js"></script>
+    <script src="https://unpkg.com/cose-base/cose-base.js"></script>
+    <script src="https://unpkg.com/cytoscape-fcose/cytoscape-fcose.js"></script>
+    
+
     <style>
       body {
         font-family: helvetica;
@@ -45,17 +50,41 @@
           boxSelectionEnabled: false,
           autounselectify: true,
 
-          layout: {
-            name: 'dagre'
-          },
+            layout: {
+              name: 'fcose',
+          //    rows: 1,            
+          //    //nodeSep: 10,
+          //    rankDir: 'LR',
+          //    animate: true
+          // //   ranker: 'tight-tree'
+            },
 
           style: [
             {
-              selector: 'node',
+              selector: '[type = "storage" ]',
               style: {
-                'background-color': '#11479e'
+                'background-color': '#11479e',
+                shape: 'round-rectangle',
+                label:'data(name)'
               }
             },
+            {
+              selector: '[type = "pool" ]',
+              style: {
+                'background-color': '#11479e',
+                shape: 'octagon',
+                label:'data(name)'
+              }
+            },
+            {
+              selector: '[type = "volume" ]',
+              style: {
+                'background-color': '#11479e',
+                shape: 'ellipse',
+                label:'data(name)'
+              }
+            },
+
 
             {
               selector: 'edge',
@@ -71,43 +100,117 @@
 
           elements: {
             nodes: [
-              { data: { id: 'n0' } },
-              { data: { id: 'n1' } },
-              { data: { id: 'n2' } },
-              { data: { id: 'n3' } },
-              { data: { id: 'n4' } },
-              { data: { id: 'n5' } },
-              { data: { id: 'n6' } },
-              { data: { id: 'n7' } },
-              { data: { id: 'n8' } },
-              { data: { id: 'n9' } },
-              { data: { id: 'n10' } },
-              { data: { id: 'n11' } },
-              { data: { id: 'n12' } },
-              { data: { id: 'n13' } },
-              { data: { id: 'n14' } },
-              { data: { id: 'n15' } },
-              { data: { id: 'n16' } }
+              { group: 'nodes',  data: {id : 'so'}},
+              { group: 'nodes', data: { id: 'sid1', name: 'netapp1', type:'storage', parent:'so' } },
+              { group: 'nodes', data: { id: 'sid2', name: 'netapp2', type:'storage', parent:'so' } },
+              { group: 'nodes', data: { id: 'sid3', name: 'hp3par', type:'storage', parent:'so' } },
+              { group: 'nodes', data: { id: 'sid4', name: 'isilon', type:'storage', parent:'so' } },
+              { group: 'nodes', data: { id: 'pid1', name: 'pool1', type: 'pool' } },
+              { group: 'nodes', data: { id: 'pid2', name: 'pool2', type: 'pool' } },
+              { group: 'nodes', data: { id: 'pid3', name: 'pool3', type: 'pool' } },              
+              { group: 'nodes', data: { id: 'vid1', name: 'vol1', type: 'volume' } },
+              { group: 'nodes', data: { id: 'vid2', name: 'vol2', type: 'volume' } },
+              { group: 'nodes', data: { id: 'vid3', name: 'vol3', type: 'volume' } },              
+              { group: 'nodes', data: { id: 'vid4', name: 'vol4', type: 'volume' } },              
+              { group: 'nodes', data: { id: 'vid5', name: 'vol5', type: 'volume' } },  
+
+              { group: 'nodes', data: { id: 'pid11', name: 'pool11', type: 'pool' } },
+              { group: 'nodes', data: { id: 'pid12', name: 'pool12', type: 'pool' } },
+              { group: 'nodes', data: { id: 'pid13', name: 'pool13', type: 'pool' } },              
+              { group: 'nodes', data: { id: 'vid11', name: 'vol11', type: 'volume' } },
+              { group: 'nodes', data: { id: 'vid12', name: 'vol12', type: 'volume' } },
+              { group: 'nodes', data: { id: 'vid13', name: 'vol13', type: 'volume' } },              
+              { group: 'nodes', data: { id: 'vid14', name: 'vol14', type: 'volume' } },              
+              { group: 'nodes', data: { id: 'vid15', name: 'vol15', type: 'volume' } },
+
+              { group: 'nodes', data: { id: 'pid21', name: 'pool21', type: 'pool' } },
+              { group: 'nodes', data: { id: 'pid22', name: 'pool22', type: 'pool' } },
+              { group: 'nodes', data: { id: 'pid23', name: 'pool23', type: 'pool' } },              
+              { group: 'nodes', data: { id: 'vid21', name: 'vol21', type: 'volume' } },
+              { group: 'nodes', data: { id: 'vid22', name: 'vol22', type: 'volume' } },
+              { group: 'nodes', data: { id: 'vid23', name: 'vol23', type: 'volume' } },              
+              { group: 'nodes', data: { id: 'vid24', name: 'vol24', type: 'volume' } },              
+              { group: 'nodes', data: { id: 'vid25', name: 'vol25', type: 'volume' } },  
+              
+              { group: 'nodes', data: { id: 'pid31', name: 'pool31', type: 'pool' } },
+              { group: 'nodes', data: { id: 'pid32', name: 'pool32', type: 'pool' } },
+              { group: 'nodes', data: { id: 'pid33', name: 'pool33', type: 'pool' } },              
+              { group: 'nodes', data: { id: 'vid31', name: 'vol31', type: 'volume' } },
+              { group: 'nodes', data: { id: 'vid32', name: 'vol32', type: 'volume' } },
+              { group: 'nodes', data: { id: 'vid33', name: 'vol33', type: 'volume' } },              
+              { group: 'nodes', data: { id: 'vid34', name: 'vol34', type: 'volume' } },              
+              { group: 'nodes', data: { id: 'vid35', name: 'vol35', type: 'volume' } },  
+
+              { group: 'nodes', data: { id: 'n1' } },
+              { group: 'nodes', data: { id: 'n2' } },
+              { group: 'nodes', data: { id: 'n3'  } },
             ],
             edges: [
-              { data: { source: 'n0', target: 'n1' } },
-              { data: { source: 'n1', target: 'n2' } },
-              { data: { source: 'n1', target: 'n3' } },
-              { data: { source: 'n4', target: 'n5' } },
-              { data: { source: 'n4', target: 'n6' } },
-              { data: { source: 'n6', target: 'n7' } },
-              { data: { source: 'n6', target: 'n8' } },
-              { data: { source: 'n8', target: 'n9' } },
-              { data: { source: 'n8', target: 'n10' } },
-              { data: { source: 'n11', target: 'n12' } },
-              { data: { source: 'n12', target: 'n13' } },
-              { data: { source: 'n13', target: 'n14' } },
-              { data: { source: 'n13', target: 'n15' } },
+              { data: { source: 'pid1', target: 'sid1' } },
+              { data: { source: 'pid2', target: 'sid1' } },
+              { data: { source: 'pid3', target: 'sid1' } },
+              { data: { source: 'vid1', target: 'pid1' } },
+              { data: { source: 'vid2', target: 'pid1' } },
+              { data: { source: 'vid3', target: 'pid1' } },
+              { data: { source: 'vid4', target: 'pid2' } },
+              { data: { source: 'vid5', target: 'pid3' } },
+
+              { data: { source: 'pid11', target: 'sid2' } },
+              { data: { source: 'pid12', target: 'sid2' } },
+              { data: { source: 'pid13', target: 'sid2' } },
+              { data: { source: 'vid11', target: 'pid11' } },
+              { data: { source: 'vid12', target: 'pid11' } },
+              { data: { source: 'vid13', target: 'pid11' } },
+              { data: { source: 'vid14', target: 'pid12' } },
+              { data: { source: 'vid15', target: 'pid13' } },
+              
+              { data: { source: 'pid21', target: 'sid3' } },
+              { data: { source: 'pid22', target: 'sid3' } },
+              { data: { source: 'pid23', target: 'sid3' } },
+              { data: { source: 'vid21', target: 'pid21' } },
+              { data: { source: 'vid22', target: 'pid21' } },
+              { data: { source: 'vid23', target: 'pid21' } },
+              { data: { source: 'vid24', target: 'pid22' } },
+              { data: { source: 'vid25', target: 'pid23' } },
+              
+              { data: { source: 'pid31', target: 'sid4' } },
+              { data: { source: 'pid32', target: 'sid4' } },
+              { data: { source: 'pid33', target: 'sid4' } },
+              { data: { source: 'vid31', target: 'pid31' } },
+              { data: { source: 'vid32', target: 'pid31' } },
+              { data: { source: 'vid33', target: 'pid31' } },
+              { data: { source: 'vid34', target: 'pid32' } },
+              { data: { source: 'vid35', target: 'pid23' } },
+              
             ]
           }
         });
+        // collect = cy.elements('[my = "pool" ]');
+        // collect.forEach(function( ele ){console.log( ele.id() );});
+        // var layout = collect.layout({name: 'grid', cols: 1});
+        // layout.run();
 
+        // collect1 = cy.elements('[my = "vol" ]');
+        // collect1.forEach(function( ele ){console.log( ele.id() );});
+        // var layout = collect1.layout({name: 'grid', cols: 3});
+        // layout.run();
+
+        //const mycollect = cy.group('my');
+        //console.log(mycollect.data('id'));
+
+       // cy.nodes().forEach(function( ele ){console.log( ele.id() );});
+       
+       cy.$('node').on('tap', function(evt){ 
+         console.log( 'tap ' + evt.target.id() );  
+         let layout=cy.layout({ 
+                name: 'fcose',
+                animate: true, // whether to transition the node positions
+                animationDuration: 5000, // duration of animation in ms if enable                
+             });
+            layout.run();
+        });
       });
+
     </script>
   </head>
 
@@ -119,3 +222,6 @@
   </body>
 
 </html>
+
+
+
